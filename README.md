@@ -14,9 +14,10 @@ Always On TV is a powerful tool that allows you to manage YouTube videos and pla
 
 To install Always On TV, follow these steps:
 
-1. Clone the repository or download the source code.
-2. Open a terminal or command prompt and navigate to the project directory.
-3. Run the following command to install the required dependencies:
+1. Download the [latest release](https://github.com/AlwaysOnTV/AlwaysOnTV/releases/latest) from the Releases page.
+2. Extract it into a directory of your choice.
+3. Open a terminal or command prompt and navigate to the extracted directory.
+4. Run the following command to install the required dependencies:
    ```
    npm install
    ```
