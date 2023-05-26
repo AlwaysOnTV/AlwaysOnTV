@@ -1,0 +1,56 @@
+name: Build and Deploy
+
+run-name: Build version ${{ github.event.client_payload.version }}
+
+on:
+  repository_dispatch:
+    types: [build]
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18.x'
+
+      - name: Fetch frontend repository
+        uses: actions/checkout@v3
+        with:
+          repository: AlwaysOnTV/AlwaysOnTV-Frontend
+          ref: main
+          path: frontend
+          token: ${{ secrets.AOTV_TOKEN }}
+
+      - name: Install dependencies and build frontend
+        run: |
+          cd frontend
+          npm install
+          npm run build
+
+      - name: Fetch backend repository
+        uses: actions/checkout@v3
+        with:
+          repository: AlwaysOnTV/AlwaysOnTV-Backend
+          ref: main
+          path: backend
+          token: ${{ secrets.AOTV_TOKEN }}
+
+      - name: Copy frontend build output to backend public directory
+        run: |
+          cp -r frontend/dist backend/public
+
+      - name: Clean backend folder
+        run: |
+          rm -rf backend/.git*
+        
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: AlwaysOnTV-${{ github.event.client_payload.version }}
+          path: backend
