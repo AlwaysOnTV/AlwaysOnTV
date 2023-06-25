@@ -32,7 +32,7 @@ To start Always On TV, follow these steps:
    ```
    npm start
    ```
-   By default, Always On TV starts two web servers on ports 8085 and 8086. You can configure the ports in the `config.json` file.
+   By default, Always On TV starts a web server on ports 8085. You can configure th port in the `config.json` file.
 
 The first time you launch Always On TV, a default configuration will be created. The default password to access the web interface is "AlwaysOnTV," but you can change it in the `config.json` file.
 
